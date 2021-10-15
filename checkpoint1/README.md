@@ -9,7 +9,7 @@ What is the statistics(mean, median, range..) of salary for the officers with th
 -- create a table including officer_id, avg_allegation_count, allegation_per_year, salary_per_year, year 
 -- to checkout average salary, median salary, max salary, min salary and variacne salary in each year and compare these results among officers with most complaints, whole officers and officers with less complaints;
 -- to checkout the officers whose salary over 100000 and their number of complaints;
--- checkout and compare the officer whose salary over 100000 and has most complaints with the officers with less complaints 
+-- to checkout and compare the officer whose salary over 100000 and has most complaints with the officers with less complaints 
 
 ### Q2 ###
 
