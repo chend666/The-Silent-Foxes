@@ -6,6 +6,7 @@ into officer_and_allegationCount
 from (select officer_id, EXTRACT(YEAR FROM start_date) as file_year, count(distinct allegation_id) as allegation_per_year from data_officerallegation
 group by officer_id, file_year) as t group by t.officer_id order by avg_allegation_count desc;
 
+
 DROP TABLE IF EXISTS officer_allegationCount_and_salary;
 create table officer_allegationCount_and_salary as
 select oa.avg_allegation_count, ds.salary
@@ -15,53 +16,73 @@ order by oa.avg_allegation_count desc;
 
 select * from officer_allegationCount_and_salary limit 10;
 
--- | avg\_allegation\_count | salary |
--- | :--- | :--- |
--- | 10.7 | 57426 |
--- | 10.7 | 58572 |
--- | 10.7 | 63396 |
--- | 10.7 | 58572 |
--- | 10 | 55764 |
--- | 10 | 49548 |
--- | 10 | 66924 |
--- | 10 | 64662 |
--- | 10 | 53136 |
--- | 8.64 | 58572 |
 
--- 0 ~ 10+ (2)
--- 145118 -- 52698 -- 2922 -- 202 -- 8 -- 9
+DROP TABLE IF EXISTS officer_id_allegationCount_and_salary;
+create table officer_id_allegationCount_and_salary as
+select oa.officer_id, oa.avg_allegation_count, ds.salary, ds.year
+from officer_and_allegationCount oa
+join data_salary ds on oa.officer_id = ds.officer_id
+order by oa.avg_allegation_count desc;
 
--- avg 
--- 1.7081373627193877
+select * from officer_id_allegationCount_and_salary;
 
--- calculate average of allegation_coun, average of salary
-select avg(oas.avg_allegation_count), avg(oas.salary)
-from officer_allegationCount_and_salary oas
+-- calculate and compare average salary
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias group by oias.year;
+-- compare average salary of officers with most complaints
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count between 6 and 8 group by oias.year;
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count between 8 and 10 group by oias.year;
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count>10 group by oias.year;
+-- compare maximum salary of officers with most complaints
+select max(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select max(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
+-- compare minimum salary of officers with most complaints
+select min(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select min(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
+-- compare median salary of officers with most complaints
+select PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
+-- compare variance salary of officers with most complaints
+select variance(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select variance(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
 
--- | avg | avg |
--- | :--- | :--- |
--- | 1.7081373627193877 | 75642.315455545216 |
+-- find officers whose complaints is over 10
+select officer_id from officer_and_allegationCount where  avg_allegation_count >= 10;
+-- 13788,
 
+-- create a table including officer_id, avg_allegation_count, allegation_per_year, salary_per_year, year
+DROP TABLE IF EXISTS officer_id_and_allegationCount_year;
+create table officer_id_and_allegationCount_year as
+select officer_id, EXTRACT(YEAR FROM start_date) as file_year, count(distinct allegation_id) as allegation_per_year from data_officerallegation
+group by officer_id, file_year order by allegation_per_year desc;
 
--- calculate average of allegation_coun, average of salary, range of salary
-select count(oas.avg_allegation_count), avg(oas.salary), max(oas.salary), min(oas.salary)
-from officer_allegationCount_and_salary oas
-where oas.avg_allegation_count >= 6;
+DROP TABLE IF EXISTS officer_id_allegationCount_and_salary_year;
+create table officer_id_allegationCount_and_salary_year as
+select oay.officer_id, oa.avg_allegation_count, oay.allegation_per_year, ds.salary as salary_per_year, ds.year
+from officer_id_and_allegationCount_year oay
+join data_salary ds on oay.officer_id = ds.officer_id and ds.year = oay.file_year
+join officer_and_allegationCount oa on oa.officer_id = oay.officer_id
+order by oa.avg_allegation_count desc;
 
--- count, avg, max, min
--- 219, 74363.315068493151,111474,42258
+-- checkout table
+select * from officer_id_allegationCount_and_salary_year;
 
--- calculate median of salary
-SELECT PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oas.salary)
-from officer_allegationCount_and_salary oas;
+-- for officers with most complaints, their change of allegation # and average salary in each year:
+select  avg(allegation_per_year) as avg_allegation_each_year, avg(salary_per_year) as avg_salary_each_year, year from officer_id_allegationCount_and_salary_year
+where avg_allegation_count >= 6 group by year order by year;
+select  avg(allegation_per_year) as avg_allegation_each_year, avg(salary_per_year) as avg_salary_each_year, year from officer_id_allegationCount_and_salary_year
+where avg_allegation_count < 6 group by year order by year;
+-- Compare the change of minimum salary of officers with most complaints or not in each year:
+select min(salary_per_year) as avg_salary_each_year, year from officer_id_allegationCount_and_salary_year
+where avg_allegation_count >= 6 group by year order by year;
+select min(salary_per_year) as avg_salary_each_year, year from officer_id_allegationCount_and_salary_year
+where avg_allegation_count < 6 group by year order by year;
 
--- medain
--- 75372
+-- checkout the officer whose salary over 100000 and their complaints.
+select officer_id, avg_allegation_count, avg(salary_per_year)   from officer_id_allegationCount_and_salary_year
+where salary_per_year > 100000 group by officer_id, avg_allegation_count, year order by avg_allegation_count desc;
+-- result: 32166 as top
 
--- compare individual salary with median salary
-select * from officer_allegationCount_and_salary oas,
-(SELECT PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oas.salary)
-from officer_allegationCount_and_salary oas) temp
-order by oas.avg_allegation_count desc;
-
+--checkout and compare the officer whose salary over 100000 and has most complaints with all officers with complaints below 6
+select * from officer_id_allegationCount_and_salary_year where officer_id = 32166 order by year;
 
