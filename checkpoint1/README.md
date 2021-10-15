@@ -6,7 +6,11 @@ What is the statistics(mean, median, range..) of salary for the officers with th
 
 -- create a table including officer_id, avg_allegation_count to check out officers with most complaints;
 ```
-sw
+DROP TABLE IF EXISTS officer_and_allegationCount;
+select t.officer_id, round(avg(allegation_per_year), 2) as avg_allegation_count
+into officer_and_allegationCount
+from (select officer_id, EXTRACT(YEAR FROM start_date) as file_year, count(distinct allegation_id) as allegation_per_year from data_officerallegation
+group by officer_id, file_year) as t group by t.officer_id order by avg_allegation_count desc;
 ```
 
 -- create a table including officer_id, avg_allegation_count, allegation_per_year, salary_per_year, year 
