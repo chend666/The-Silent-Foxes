@@ -13,8 +13,26 @@ from (select officer_id, EXTRACT(YEAR FROM start_date) as file_year, count(disti
 group by officer_id, file_year) as t group by t.officer_id order by avg_allegation_count desc;
 ```
 
--- create a table including officer_id, avg_allegation_count, allegation_per_year, salary_per_year, year 
+-- create a table including officer_id, avg_allegation_count, salary_per_year, year 
+```
+DROP TABLE IF EXISTS officer_allegationCount_and_salary;
+create table officer_allegationCount_and_salary as
+select oa.avg_allegation_count, ds.salary
+from officer_and_allegationCount oa
+join data_salary ds on oa.officer_id = ds.officer_id
+order by oa.avg_allegation_count desc;
 
+select * from officer_allegationCount_and_salary limit 10;
+
+DROP TABLE IF EXISTS officer_id_allegationCount_and_salary;
+create table officer_id_allegationCount_and_salary as
+select oa.officer_id, oa.avg_allegation_count, ds.salary, ds.year
+from officer_and_allegationCount oa
+join data_salary ds on oa.officer_id = ds.officer_id
+order by oa.avg_allegation_count desc;
+
+select * from officer_id_allegationCount_and_salary;
+```
 -- to checkout average salary, median salary, max salary, min salary and variacne salary in each year and compare these results among officers with most complaints, whole officers and officers with less complaints;
 
 -- to checkout the officers whose salary over 100000 and their number of complaints;
