@@ -5,6 +5,9 @@
 What is the statistics(mean, median, range..) of salary for the officers with the most complaints?
 
 -- create a table including officer_id, avg_allegation_count to check out officers with most complaints;
+```
+sw
+```
 
 -- create a table including officer_id, avg_allegation_count, allegation_per_year, salary_per_year, year 
 
