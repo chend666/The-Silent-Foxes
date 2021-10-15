@@ -34,6 +34,27 @@ order by oa.avg_allegation_count desc;
 select * from officer_id_allegationCount_and_salary;
 ```
 -- to checkout average salary, median salary, max salary, min salary and variacne salary in each year and compare these results among officers with most complaints, whole officers and officers with less complaints;
+```
+-- calculate and compare average salary
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias group by oias.year;
+-- compare average salary of officers with most complaints
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count between 6 and 8 group by oias.year;
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count between 8 and 10 group by oias.year;
+select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count>10 group by oias.year;
+-- compare maximum salary of officers with most complaints
+select max(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select max(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
+-- compare minimum salary of officers with most complaints
+select min(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select min(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
+-- compare median salary of officers with most complaints
+select PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
+-- compare variance salary of officers with most complaints
+select variance(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
+select variance(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
+```
 
 -- to checkout the officers whose salary over 100000 and their number of complaints;
 
