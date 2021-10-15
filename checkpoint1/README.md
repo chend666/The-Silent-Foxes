@@ -85,9 +85,9 @@ join number_complaint d on d.officer_id = data_award.officer_id);
 ### Q3 ###
 
 What is the percentage of officers who were disciplined in an allegation get an honor mention or awards?
-select query for 
---officers who were disciplined in a complaint
---officers,who were disciplined in a complaint,get awards
+select query for;
+--officers who were disciplined in a complaint;
+--officers,who were disciplined in a complaint,get awards;
 ```
 select
 (select count(distinct officer_id) as disciplined_officer from data_officerallegation
