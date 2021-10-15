@@ -34,28 +34,7 @@ order by oa.avg_allegation_count desc;
 select * from officer_id_allegationCount_and_salary;
 ```
 -- to checkout average salary, median salary, max salary, min salary and variacne salary in each year and compare these results among officers with most complaints, whole officers and officers with less complaints;
-```
--- calculate and compare average salary
-select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
-select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias group by oias.year;
--- compare average salary of officers with most complaints
-select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count between 6 and 8 group by oias.year;
-select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count between 8 and 10 group by oias.year;
-select avg(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count>10 group by oias.year;
--- compare maximum salary of officers with most complaints
-select max(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
-select max(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
--- compare minimum salary of officers with most complaints
-select min(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
-select min(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
--- compare median salary of officers with most complaints
-select PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
-select PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
--- compare variance salary of officers with most complaints
-select variance(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
-select variance(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
 
-```
 -- to checkout the officers whose salary over 100000 and their number of complaints;
 
 -- to checkout and compare the officer whose salary over 100000 and has most complaints with the officers with less complaints 
@@ -124,6 +103,77 @@ where disciplined = true);
 ### Q4 ###
 
 Can the total number or frequency of complaints received by the officer be reflected by his/her career advancement(whether an officer holding an award in a year receives less or no complaint)?
+
+--use following query to view answers for year 2005 and 2006
+
+--if you want to view other years shown in our findings, please find in sql file
+```
+--officers who receive complaints in 2005
+create table complaint_2005 as
+select officer_id,incident_date from data_allegation
+join data_officerallegation d on data_allegation.crid = d.allegation_id
+where EXTRACT(year FROM incident_date) = 2005;
+
+--officers who receive awards in 2005
+create table award_2005 as
+select officer_id from data_award
+where EXTRACT(year FROM start_date) = 2005;
+
+--officers who receive complaints but no awards in 2005
+create table new_2005 as
+select officer_id from complaint_2005
+where officer_id not in
+(select award_2005.officer_id from award_2005);
+
+--officers who receive complaints in 2006
+create table complaint_2006 as
+select officer_id,incident_date from data_allegation
+join data_officerallegation d on data_allegation.crid = d.allegation_id
+where EXTRACT(year FROM incident_date) = 2006;
+
+--officers, who receive complaints but no awards in 2005, receive complaints in 2006
+create table new_2006 as
+select c.officer_id from new_2005
+join complaint_2006 c on new_2005.officer_id = c.officer_id;
+
+--officers who get awards in 2006
+create table award_2006 as
+select officer_id from data_award
+where EXTRACT(year FROM start_date) = 2006;
+
+--officers, who receive complaints but no awards in 2005, receive both complaints and awards in 2006
+create table both_2006 as
+select new_2006.officer_id from new_2006
+join award_2006 a on new_2006.officer_id = a.officer_id;
+
+--officers, who receive complaints, get awards in 2006 but not in 2005
+create table both_2005_2006 as
+select distinct b.officer_id from new_2005
+join both_2006 b on new_2005.officer_id = b.officer_id;
+
+--count number of complaints received by each officer
+create table output_2005_2 as
+select b.officer_id,count(b.officer_id) from both_2005_2006
+join new_2005 b on both_2005_2006.officer_id = b.officer_id
+group by b.officer_id
+order by count(b.officer_id) DESC;
+
+create table output_2006 as
+select b.officer_id,count(b.officer_id) from both_2005_2006
+join new_2006 b on both_2005_2006.officer_id = b.officer_id
+group by b.officer_id
+order by count(b.officer_id) DESC;
+
+--use this query to see the comparison of number of complaints for each complaint in each year
+select a.officer_id,output_2005_2.count as count_2005, a.count as count_2006
+from output_2005_2
+join output_2006 a on output_2005_2.officer_id = a.officer_id;
+
+--get total number of complaints in 2005 and 2006 for officers described above
+select
+(select sum(output_2005_2.count) as total_2005 from output_2005_2),
+(select sum(output_2006.count) as total_2006 from output_2006);
+```
 
 ### Q5 ###
 
