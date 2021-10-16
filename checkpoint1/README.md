@@ -73,7 +73,7 @@ order by oa.avg_allegation_count desc;
 -- checkout table
 select * from officer_id_allegationCount_and_salary_year;
 ```
--- to checkout and compare the changes of number of allegations and average salary between officers with most complaints and officers with less complaints
+-- to checkout and compare the changes of number of allegations and average salary between officers with most complaints and officers with less complaints over years
 ```
 -- for officers with most complaints, their change of allegation # and average salary in each year:
 select  avg(allegation_per_year) as avg_allegation_each_year, avg(salary_per_year) as avg_salary_each_year, year from officer_id_allegationCount_and_salary_year
