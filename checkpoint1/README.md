@@ -54,9 +54,22 @@ select PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY oias.salary), oias.year from o
 -- compare variance salary of officers with most complaints
 select variance(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count >= 6 group by oias.year;
 select variance(oias.salary), oias.year from officer_id_allegationCount_and_salary oias where oias.avg_allegation_count < 6 group by oias.year;
-
 ```
+-- create a table including officer_id, avg_allegation_count, allegation_per_year, salary_per_year, year
+```
+DROP TABLE IF EXISTS officer_id_and_allegationCount_year;
+create table officer_id_and_allegationCount_year as
+select officer_id, EXTRACT(YEAR FROM start_date) as file_year, count(distinct allegation_id) as allegation_per_year from data_officerallegation
+group by officer_id, file_year order by allegation_per_year desc;
 
+DROP TABLE IF EXISTS officer_id_allegationCount_and_salary_year;
+create table officer_id_allegationCount_and_salary_year as
+select oay.officer_id, oa.avg_allegation_count, oay.allegation_per_year, ds.salary as salary_per_year, ds.year
+from officer_id_and_allegationCount_year oay
+join data_salary ds on oay.officer_id = ds.officer_id and ds.year = oay.file_year
+join officer_and_allegationCount oa on oa.officer_id = oay.officer_id
+order by oa.avg_allegation_count desc;
+```
 -- to checkout the officers whose salary over 100000 and their number of complaints;
 
 -- to checkout and compare the officer whose salary over 100000 and has most complaints with the officers with less complaints 
