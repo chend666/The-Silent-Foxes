@@ -69,11 +69,22 @@ from officer_id_and_allegationCount_year oay
 join data_salary ds on oay.officer_id = ds.officer_id and ds.year = oay.file_year
 join officer_and_allegationCount oa on oa.officer_id = oay.officer_id
 order by oa.avg_allegation_count desc;
+
+-- checkout table
+select * from officer_id_allegationCount_and_salary_year;
 ```
 -- to checkout the officers whose salary over 100000 and their number of complaints;
-
+```
+-- checkout the officer whose salary over 100000 and their complaints.
+select officer_id, avg_allegation_count, avg(salary_per_year)   from officer_id_allegationCount_and_salary_year
+where salary_per_year > 100000 group by officer_id, avg_allegation_count, year order by avg_allegation_count desc;
+-- result: 32166 as top
+```
 -- to checkout and compare the officer whose salary over 100000 and has most complaints with the officers with less complaints 
-
+```
+--checkout and compare the officer whose salary over 100000 and has most complaints with all officers with complaints below 6
+select * from officer_id_allegationCount_and_salary_year where officer_id = 32166 order by year;
+```
 ### Q2 ###
 
 What percentage of total complaints are these officers who have received an honor mention or award responsible for?
