@@ -1,6 +1,8 @@
 
 ## Data Exploration
 
+### How to navigate our Tableau workbook 
+
 ### Q1
 Is there a correlation between the number of awards or honor mentions of the officer and the type of complaint (verbal abuse, use of force, etc)?
 
