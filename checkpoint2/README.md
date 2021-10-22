@@ -25,3 +25,16 @@ Side-by-side bar chart: Compare Annual Salary & Allegation Count
 ### Q2
 Is there a correlation between the number of allegations received before an officer’s first settlement case and number of allegations received after?
 
+-- A Bubble diagram and a heatmap show the number of settled allegations
+```
+Open Allegation Annual Settlement Count.twb with Tableau, and connect to database,
+Bubble diagram: Allegation Annual Settlement Count
+Heatmap:  Allegation Annual Settlement Count
+```
+-- A Bubble diagram and a heatmap show the number of received allegations
+```
+Open Allegation Annual Received Count.twb with Tableau, and connect to database,
+Bubble diagram: Allegation Annual Received Count
+Heatmap:  Allegation Annual Received Count
+```
+Compare the these two charts and draw the conclusion.
