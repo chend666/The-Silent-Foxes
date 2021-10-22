@@ -19,7 +19,7 @@ a table called 'Allegation Annual Count' shows how total number of allegations r
 Open Q1.twb with Tableau,
 a table called 'Average Annual Salary' shows how average salary of officers changes over years
 ```
--- A Double-line chart combined both two charts above
+-- A Double-Line chart combined both two charts above
 ```
 Open Q1_A_S.twb with Tableau,
 a table called <Annual Allegation Count & Average Salary> we use to compare the trend of annual salary with the allegation count over years
