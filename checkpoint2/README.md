@@ -9,32 +9,26 @@ We've saved our charts in a Tableau workbook. As long as you have the CPDP datab
 ### Q1
 Is there a correlation between the salary of the officer and the number of complaints?
 
--- Line charts showing the trend of annual allegation count, annual average salary over years by running:
+-- A line chart showing the trend of annual allegation count over years by running:
 ```
 Open Q1.twb with Tableau, and connect to database CPDB, 
-a table called 'Allegation Annual Count' shows how total number of allegations received by officers changes over year;
-a table called 'Average Annual Salary' shows the change of officers' average salary over year;
+a table called 'Allegation Annual Count' shows how total number of allegations received by officers changes over years
 ```
--- Compare the trends of these two line charts above with a liner chart and a side-by-side bar chart
+-- A line chart showing the trend of annual average salary over years
 ```
-In Q1.twb,
-line chart: Annual Allegation Count & Average Salary;
-Side-by-side bar chart: Compare Annual Salary & Allegation Count
+Open Q1.twb with Tableau,
+a table called 'Average Annual Salary' shows how average salary of officers changes over years
+```
+-- A double-line chart combined both two charts above
+```
+Open Q1_A_S.twb with Tableau,
+a table called <Annual Allegation Count & Average Salary> we use to compare the trend of annual salary with the allegation count over years
+```
+-- A side-by-side bar chart for comparison
+```
+a table called 'compare Average Salary & Allegation Count' for same observation as above chart
 ```
 
 ### Q2
 Is there a correlation between the number of allegations received before an officer’s first settlement case and number of allegations received after?
 
--- A Bubble diagram and a heatmap show the number of settled allegations
-```
-Open Allegation Annual Settlement Count.twb with Tableau, and connect to database,
-Bubble diagram: Allegation Annual Settlement Count
-Heatmap:  Allegation Annual Settlement Count
-```
--- A Bubble diagram and a heatmap show the number of received allegations
-```
-Open Allegation Annual Received Count.twb with Tableau, and connect to database,
-Bubble diagram: Allegation Annual Received Count
-Heatmap:  Allegation Annual Received Count
-```
-Compare the these two charts and draw the conclusion.
