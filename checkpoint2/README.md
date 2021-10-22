@@ -8,6 +8,10 @@ We've saved our charts in a Tableau workbook. As long as you have the CPDP datab
 ### Our Questions
 ### Q1
 Is there a correlation between the salary of the officer and the number of complaints?
+--A line chart showing the trend of annual allegation count over years by running:
+'''
+Open Q1.twb with Tableau, and connect to database CPDB, a table called 'Allegation Annual Count' shows how total number of allegations received by officers changes over year
+'''
 
 ### Q2
 Is there a correlation between the number of allegations received before an officer’s first settlement case and number of allegations received after?
