@@ -28,6 +28,7 @@ a table called <Annual Allegation Count & Average Salary> we use to compare the 
 ```
 a table called 'compare Average Salary & Allegation Count' for same observation as above chart
 ```
+-- A gantt chart to explore distribution of annual salary of officers with the 6+ complaints over time
 
 ### Q2
 Is there a correlation between the number of allegations received before an officer’s first settlement case and number of allegations received after?
