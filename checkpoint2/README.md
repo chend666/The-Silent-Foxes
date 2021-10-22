@@ -9,10 +9,17 @@ We've saved our charts in a Tableau workbook. As long as you have the CPDP datab
 ### Q1
 Is there a correlation between the salary of the officer and the number of complaints?
 
--- A line chart showing the trend of annual allegation count over years by running:
+-- Line charts showing the trend of annual allegation count, annual average salary over years by running:
 ```
 Open Q1.twb with Tableau, and connect to database CPDB, 
-a table called 'Allegation Annual Count' shows how total number of allegations received by officers changes over year
+a table called 'Allegation Annual Count' shows how total number of allegations received by officers changes over year;
+a table called 'Average Annual Salary' shows the change of officers' average salary over year;
+```
+-- Compare the trends of these two line charts above with a liner chart and a side-by-side bar chart
+```
+In Q1.twb,
+line chart: Annual Allegation Count & Average Salary;
+Side-by-side bar chart: Compare Annual Salary & Allegation Count
 ```
 
 ### Q2
