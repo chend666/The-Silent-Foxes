@@ -1,3 +1,7 @@
 ## README
-1. describes how to run your code
-2. Make sure to list any dependencies you build upon on beyond the tools listed above with setup instructions.  
+How to run:
+```
+Open 'OpenRefine', and find 'import project' on the left
+Then import file into the 'OpenRefine'
+Note: You do not need to unzip the project, just import the '.tar.gz' directly
+```
