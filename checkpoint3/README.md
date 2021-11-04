@@ -1,4 +1,4 @@
-### Interactive Visualization:
+### Interactive Visualization
 
 #### Q1 What is the distribution of officers' salary across race, gender and other discrepancies? [by Density] 
 
