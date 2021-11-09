@@ -4,7 +4,14 @@ To view graphs in this checkpoint, just open ".html" in "/src" with any compatia
 
 #### Q1 What is the distribution of officers' salary across race, gender and other discrepancies? 
 ```
-(1) ....html: Distribution of officers' salary across gender
+In src/Q1:
+(1) officer salary across gender.html: Distribution of officers' salary across gender
+(2) officer salary distribution across race.html: Distribution of officers' salary across all race
+(3) officer salary distribution across race(Black).html: Distribution of officers' salary across Black
+(4) officer salary distribution across race(Hispanic).html: Distribution of officers' salary across Hispanic
+(5) officer salary distribution across race(Native American).html: Distribution of officers' salary across Native American
+(6) officer salary distribution across race(White).html: Distribution of officers' salary across White
+(7) officer salary districbution across race(Asian: Pacific).html: Distribution of officers' salary across Pacific
 ```
 
 #### Q2 What is the distribution of the categories of the misconducts (illegal search, use of force, etc.) for officers with or without awards?
