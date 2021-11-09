@@ -1,10 +1,10 @@
 ### Interactive Visualization
 
-#### Q1 What is the distribution of officers' salary across race, gender and other discrepancies? [by Density] 
+#### Q1 What is the distribution of officers' salary across race, gender and other discrepancies? 
 
-#### Q2 What is the distribution of the categories of the misconducts (illegal search, use of force, etc.) for officers with or without awards? [by Box plot]
+#### Q2 What is the distribution of the categories of the misconducts (illegal search, use of force, etc.) for officers with or without awards?
 
-#### Q3 Can we compare misconduct maps according to different time lines(monthly, yearly) and make an interactive map to show the continuous change? [by Circular Barplot]
+#### Q3 Can we compare misconduct maps according to different time lines(monthly, yearly) and make an interactive map to show the continuous change? 
 
 #### Q4 Can we dig more information from the cold zone(misconducts happened lower annually/on average) by making a heat map?
 
