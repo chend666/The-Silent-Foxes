@@ -23,3 +23,11 @@ You can choose whether to test it or not just by uncommenting the related lines 
 ```
 ### Q2 Can we identify clusters of officers who are likely to be co-accused by factors related to their career, like working environment, salary, rank? 
 
+```
+In src/Q2:
+How to run:
+
+The 'Result_2.csv' is salary and last_unit_id of officers we use in following steps to create network
+The 'Result_6.csv' is rank and last_unit_id of officers
+```
+
