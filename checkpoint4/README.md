@@ -16,6 +16,8 @@ psycopg2
 numpy
 seaborn
 
+Running the current 'cp4-1.py' will give you result of first part of Question 1 we have in 'findings.pdf'
+The second part of Question 1 is to add more edges based on working area, which is last_unit_id in data_officer frmm CPDB
 As mentioned in comments of code, adding more edges by using last_unit_id will take a long time to run, since there are too many nodes and we are going to check and find relationship for each of them. 
 You can choose whether to test it or not just by uncommenting the related lines of code.
 ```
