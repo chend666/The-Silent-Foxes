@@ -26,7 +26,10 @@ You can choose whether to test it or not just by uncommenting the related lines 
 ```
 In src/Q2:
 How to run:
+1. Network showing connection of officers who are in the same last unit
+Open and run 'getCombination.ipnpy' in Jupter Notebook in Python language
 
+2. 
 The 'Result_2.csv' is salary and last_unit_id of officers we use in following steps to create network
 The 'Result_6.csv' is rank and last_unit_id of officers
 ```
