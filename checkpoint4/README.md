@@ -38,7 +38,7 @@ Open and run 'award_rank.ipynb' in Jupter Notebook with Python language
 
 Other Files:
 The 'sql.md' contains queries to use to extract data from CPDB
-The 
+The 'postgres_public_data_officer.csv' is the (officer)id and last_unit_id we used in building network
 The 'Result_2.csv' is salary and last_unit_id of officers we use in following steps to create network
 The 'Result_6.csv' is rank and last_unit_id of officers
 ```
