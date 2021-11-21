@@ -27,9 +27,14 @@ You can choose whether to test it or not just by uncommenting the related lines 
 In src/Q2:
 How to run:
 1. Network showing connection of officers who are in the same last unit
-Open and run 'getCombination.ipnpy' in Jupter Notebook in Python language
+Open and run 'getCombination.ipynb' in Jupter Notebook as Python language
 
-2. 
+2. Network showing clusters of officers with their current salary, also regarding officers who are in the same last unit have connections
+Open and run 'officer_salary_network.ipynb' in Jupter Notebook as Python language
+
+3. Network of officers with factor rank and award
+Open and run 
+
 The 'Result_2.csv' is salary and last_unit_id of officers we use in following steps to create network
 The 'Result_6.csv' is rank and last_unit_id of officers
 ```
