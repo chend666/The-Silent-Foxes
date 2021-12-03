@@ -1,4 +1,4 @@
-## Checkpoint 5 Graph Analytics
+## Checkpoint 5 Natural Language Processing
 
 ### Q1 Can we train a transformer-based language model to identify the officer complaint from allegation narratives?
 ```
