@@ -20,5 +20,7 @@ To predict from allegation narratives:
 2. run 'prediction.py'
 
 It will print out the prediction result.
-Note: it currently reads 'narratives.csv' as input text for prediction. If you want to predict your own documents, please change the file name to 'narratives.csv' or change the code in 'prediction.py', and make sure you have the field called 'text'
+Note: it currently reads 'narratives.csv' as input text for prediction. 
+If you want to predict your own documents, please change the file name to 'narratives.csv' 
+or change the code in 'prediction.py', and make sure you have the field called 'text'
 ```
